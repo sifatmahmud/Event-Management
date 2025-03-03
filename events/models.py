@@ -5,9 +5,9 @@ class Event(models.Model):
     name= models.CharField(max_length=250)
     description = models.TextField()
     date = models.DateField()
-    time = models.TimeField()
+    time = models.TimeField(null=True, blank=True)
     location = models.CharField(max_length=400)
-    category = models.ForeignKey("Category", on_delete=models.CASCADE, related_name='events')
+    category = models.ForeignKey("Category", on_delete=models.CASCADE, related_name='events', null=True)
 
 
     def __str__(self):
