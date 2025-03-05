@@ -18,7 +18,7 @@ class Event(models.Model):
 class Participant(models.Model):
     name= models.CharField(max_length=250)
     email = models.EmailField()
-    events = models.ManyToManyField(Event, related_name="participants")
+    events = models.ManyToManyField(Event, related_name="participants", null=True, blank=True)
 
     def __str__(self):
         return self.name
