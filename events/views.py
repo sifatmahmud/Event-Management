@@ -4,7 +4,7 @@ from django.contrib import messages
 
 
 
-
+# -------------- Event section ---------------------
 def create_event(request):
     if request.method == 'POST':
         create_event_form = Event_Form(request.POST)
@@ -18,6 +18,7 @@ def create_event(request):
     
     return render(request, 'forms/create_event.html', {'create_event_form':create_event_form})
 
+# -------------- Category section ---------------------
 def create_category(request):
     if request.method == 'POST':
         create_category_form = Category_Form(request.POST)
@@ -31,6 +32,7 @@ def create_category(request):
     
     return render(request, 'forms/create_category.html', {'create_category_form':create_category_form})
 
+# -------------- Participant section ---------------------
 def create_participant(request):
     if request.method == 'POST':
         create_participant_form = Participant_Form(request.POST)

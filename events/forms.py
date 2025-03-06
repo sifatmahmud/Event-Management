@@ -34,6 +34,10 @@ class StyleFormMixin:
                     'class': self.default_classes,
                     'placeholder': f'Enter {field.label.lower()}'
                 })
+            elif isinstance(field.widget, forms.CheckboxSelectMultiple):
+                field.widget.attrs.update({
+                    'class': "space-y-2 ml-5"
+                })
             else:
                 field.widget.attrs.update({
                     'class': self.default_classes
@@ -43,11 +47,12 @@ class StyleFormMixin:
 class Event_Form(StyleFormMixin ,forms.ModelForm):
     class Meta:
         model = Event
-        fields = ['name', 'description', 'date','time', 'location']
+        fields = ['name', 'description', 'date','time', 'location', 'category']
 
         widgets = {
             'date': forms.SelectDateWidget,
-            'time': forms.TimeInput(attrs={'type': 'time'})
+            'time': forms.TimeInput(attrs={'type': 'time'}),
+            'category': forms.Select
         }
 
     """ --------- Using Mixing Widget ----------- """
@@ -72,7 +77,11 @@ class Category_Form(StyleFormMixin ,forms.ModelForm):
 class Participant_Form(StyleFormMixin ,forms.ModelForm):
     class Meta:
         model = Participant
-        fields = ['name', 'email']
+        fields = ['name', 'email', 'events']
+
+        widgets = {
+            'events':forms.CheckboxSelectMultiple
+        }
 
     """ --------- Using Mixing Widget ----------- """
     def __init__(self, *args, **kwargs):
