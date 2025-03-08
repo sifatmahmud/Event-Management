@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from events.forms import Event_Form, Category_Form, Participant_Form
 from django.contrib import messages
+from events.models import Event, Participant, Category
 
 
 
@@ -17,6 +18,21 @@ def create_event(request):
         create_event_form = Event_Form()
     
     return render(request, 'forms/create_event.html', {'create_event_form':create_event_form})
+
+def update_event(request, event_id):
+    event = Event.objects.get(id=event_id)
+
+    if request.method == "POST":
+        update_event_form = Event_Form(request.POST, instance=event)
+        if update_event_form.is_valid():
+            update_event_form.save()
+            messages.success(request, "Event Updated Successfully")
+            # return redirect('event-detail', event_id=event.id)
+    else:
+        update_event_form = Event_Form(instance=event)
+
+    return render(request, "forms/update_event.html", {"update_event_form": update_event_form})
+
 
 # -------------- Category section ---------------------
 def create_category(request):
