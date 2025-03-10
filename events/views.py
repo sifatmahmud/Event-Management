@@ -4,6 +4,10 @@ from django.contrib import messages
 
 
 
+
+def home(request):
+    return render(request, 'home.html')
+
 # -------------- Event section ---------------------
 def create_event(request):
     if request.method == 'POST':

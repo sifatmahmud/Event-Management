@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+</head>
+<body>
+    {% comment %} navbar secion {% endcomment %}
+    <header class="sticky border-b border-gray-100 p-5 flex justify-between">
+        {% comment %} name / logo {% endcomment %}
+        <div class="flex gap-1">
+            <div class="mt-1"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
+            </svg></div>
+            <div class="text-2xl font-bold hover:text-indigo-500 cursor-pointer">EventHub</div>
+        </div>
+
+        {% comment %} menu  {% endcomment %}
+        <div class="mr-8 p-2">
+            <ul class="flex space-x-6 text-xl font-medium">
+                <li class="hover:text-indigo-600 cursor-pointer">Home</li>
+                <li class="hover:text-indigo-600 cursor-pointer">About Us</li>
+                <li class="hover:text-indigo-600 cursor-pointer">Services</li>
+                <li class="hover:text-indigo-600 cursor-pointer">Contact</li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        {% comment %} hero section {% endcomment %}
+        <div id="bg-slider" class="flex flex-col justify-center h-[650px] gap-2 w-full bg-cover bg-center transition-all duration-1000 p-2">
+            <div class="flex justify-center text-5xl font-bold text-indigo-500">Discover Amazing Events Near</div>
+            <div class="flex justify-center text-5xl font-bold text-indigo-500">You</div>
+            <div class="flex justify-center text-gray-100 font-normal text-xl p-2">Find local events, workshops, meetups, and more. Connect with people who share your interests and make memorable experience</div>
+
+            {% comment %} search section {% endcomment %}
+            <div class="flex justify-center items-center p-2 mt-12">
+                <input type="text" placeholder=" Search events..."
+                    class="outline-none px-5 rounded-2xl h-16 w-1/2 shadow-md shadow-indigo-300 hover:shadow-indigo-500 hover:shadow-lg text-black transition-all duration-300 hover:scale-105 hover:mr-5">
+                <button class="text-white hover:text-gray-400 ml-2 transform hover:scale-105">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                        stroke="currentColor" class="size-10">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+
+        {% comment %} Events section {% endcomment %}
+        <div class="grid grid-cols-3 p-5">
+            {% comment %} title section {% endcomment %}
+            <div class="text-4xl font-bold col-span-2 flex justify-center">Events</div>
+                {% comment %} Box Container {% endcomment %}
+            <div class="bg-gray-100 p-2 rounded-lg shadow-lg w-56">
+                {% comment %} Buttons {% endcomment %}
+                <div class="flex justify-center space-x-4">
+                    {% comment %} All Button {% endcomment %}
+                    <button class="bg-indigo-600 text-white py-2 px-6 rounded-lg hover:bg-indigo-700 hover:shadow-indigo-500 hover:shadow-lg active:bg-gray-400 active:text-black transition-all duration-300 focus:outline-none">
+                    All
+                    </button>
+
+                    {% comment %} Upcoming Button  {% endcomment %}
+                    <button class="bg-indigo-600 text-white py-2 px-6 rounded-lg hover:bg-indigo-700 hover:shadow-indigo-500 hover:shadow-lg active:bg-gray-400 active:text-black transition-all duration-300 focus:outline-none">
+                    Upcoming
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        {% comment %} events cards section {% endcomment %}
+        <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 p-5">
+            <!-- card-1 -->
+            <div class="max-w-sm rounded-lg overflow-hidden shadow-lg shadow-indigo-500">
+                <img class="w-full" src="/static/images/tech.jpg" alt="">
+                <div class="p-3">
+                    <h1 class="text-2xl font-semibold mb-1">Tech Conference 2025</h1>
+                    <div class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 h-5 w-5 text-gray-500 mr-2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+                        </svg>
+                        <span class="texm-sm text-gray-600 mr-2">Nov 15 2024 -</span>
+                        <span class="texm-sm text-gray-600">09:00 PM</span>
+                    </div>
+
+                    <div class="flex items-center mb-2">
+                        <span class="font-semibold text-gray-800 mr-2">Category:</span>
+                        <span class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-full text-xs font-semibold">Technology</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="font-semibold text-gray-800 mr-2">Participants:</span>
+                        <span class="bg-green-100 text-green-800 py-1 px-2 rounded-full text-xs font-semibold">150</span>
+                    </div>
+
+                    <div class="text-xs p-2">
+                        Join us for the biggest tech conference of the year featuring keynotes from industry leaders and hands-on workshops.
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </main>
+</body>
+</html>
