@@ -8,6 +8,9 @@ from django.contrib import messages
 def home(request):
     return render(request, 'home.html')
 
+def about(request):
+    return render(request, 'about.html')
+
 # -------------- Event section ---------------------
 def create_event(request):
     if request.method == 'POST':

@@ -1,36 +1,6 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="{% static 'js/script.js' %}"></script>
-</head>
-<body class="">
-    {% comment %} navbar secion {% endcomment %}
-    <header class="border-b border-gray-200 p-5 px-20 flex justify-between">
-        {% comment %} name / logo {% endcomment %}
-        <div class="flex gap-1">
-            <div class="mt-1"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
-            </svg></div>
-            <div class="text-2xl font-bold hover:text-indigo-500 cursor-pointer">EventHub</div>
-        </div>
+{% extends "base.html" %}
 
-        {% comment %} menu  {% endcomment %}
-        <div class="mr-8 p-2">
-            <ul class="flex space-x-6 text-xl font-medium">
-                <li class="hover:text-indigo-600 cursor-pointer">Home</li>
-                <li class="hover:text-indigo-600 cursor-pointer">About Us</li>
-                <li class="hover:text-indigo-600 cursor-pointer">Services</li>
-                <li class="hover:text-indigo-600 cursor-pointer">Contact</li>
-            </ul>
-        </div>
-    </header>
-
-    <main>
+{% block content %}
         {% comment %} hero section {% endcomment %}
         <div id="bg-slider" class="flex flex-col justify-center h-[650px] gap-2 w-full bg-cover bg-center transition-all duration-1000 p-2 relative">
             <!-- Dark Overlay on Image -->
@@ -156,7 +126,8 @@
             </div>
         </div>
 
-        <div class="flex flex-col justify-center items-center gap-1 p-16 bg-gray-100">
+        {% comment %} explore section {% endcomment %}
+        <div class="flex flex-col justify-center items-center gap-1 p-16 bg-gray-100 mt-16">
             <div class="text-black font-bold text-4xl">Ready to explore events ?</div>
             <div class="flex flex-col justify-center items-center p-6">
                 <div class="text-gray-500">Join thousands of attendees discovering new experiences every day. Contact us to get personalized</div>
@@ -168,27 +139,5 @@
                 Contact Us
             </button>
         </div>
+{% endblock  %}
 
-        {% comment %} footer section {% endcomment %}
-        <footer class="border-t border-gray-200 p-5 px-20 flex justify-between">
-            {% comment %} name / logo {% endcomment %}
-            <div class="flex gap-1 mt-2">
-                <div class="mt-1"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
-                </svg></div>
-                <div class="text-md font-semibold p-1">EventHub</div>
-                <div class="text-gray-500 text-sm pt-2">© 2025</div>
-            </div>
-    
-            {% comment %} menu  {% endcomment %}
-            <div class="mr-24 sm:mr-5 md:mr-5 lg:mr-24 p-3">
-                <ul class="flex space-x-6 text-sm font-semibold">
-                    <li class="text-gray-500 hover:text-black cursor-pointer">About Us</li>
-                    <li class="text-gray-500 hover:text-black cursor-pointer">Services</li>
-                    <li class="text-gray-500 hover:text-black cursor-pointer">Contact</li>
-                </ul>
-            </div>
-        </footer>
-    </main>
-</body>
-</html>
