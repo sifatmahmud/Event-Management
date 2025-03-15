@@ -1,5 +1,5 @@
 from django import forms
-from events.models import Event, Category, Participant
+from events.models import Event, Category, Participant, Contact_Us
 
 
 
@@ -74,6 +74,8 @@ class Category_Form(StyleFormMixin ,forms.ModelForm):
         self.apply_styled_widgets()
 
 
+
+
 class Participant_Form(StyleFormMixin ,forms.ModelForm):
     class Meta:
         model = Participant
@@ -91,7 +93,15 @@ class Participant_Form(StyleFormMixin ,forms.ModelForm):
 
 
 
+class Contact_Us_Form(StyleFormMixin ,forms.ModelForm):
+    class Meta:
+        model = Contact_Us
+        fields = ['name','subject', 'description']
 
+    """ --------- Using Mixing Widget ----------- """
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.apply_styled_widgets()
 
 
 

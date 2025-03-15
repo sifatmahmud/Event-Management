@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from events.forms import Event_Form, Category_Form, Participant_Form
+from events.forms import Event_Form, Category_Form, Participant_Form, Contact_Us_Form
 from django.contrib import messages
 from events.models import Event, Participant, Category
 from django.db.models import Count
@@ -65,3 +65,20 @@ def create_participant(request):
         create_participant_form = Participant_Form()
     
     return render(request, 'forms/create_participant.html', {'create_participant_form':create_participant_form})
+
+
+
+
+# -------------- Contact Us section ---------------------
+def contact_us(request):
+    if request.method == 'POST':
+        contact_us_form = Contact_Us_Form(request.POST)
+        if contact_us_form.is_valid():
+            contact_us_form.save()
+        
+        messages.success(request, "Submitted Successfully")
+        return redirect('contact_us')
+    else:
+        contact_us_form = Contact_Us_Form()
+    
+    return render(request, 'forms/contact_us.html', {'contact_us_form':contact_us_form})
