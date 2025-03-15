@@ -1,12 +1,15 @@
 from django.shortcuts import render, redirect
 from events.forms import Event_Form, Category_Form, Participant_Form
 from django.contrib import messages
+from events.models import Event, Participant, Category
+from django.db.models import Count
 
 
 
 
 def home(request):
-    return render(request, 'home.html')
+    events = Event.objects.annotate(participants_count=Count('participants'))[:8]
+    return render(request, 'home.html', {"events": events})
 
 def about(request):
     return render(request, 'about.html')
@@ -24,6 +27,16 @@ def create_event(request):
         create_event_form = Event_Form()
     
     return render(request, 'forms/create_event.html', {'create_event_form':create_event_form})
+
+
+
+def event_detail(request, event_id):
+    event = Event.objects.get(id=event_id)
+    return render(request, 'event_detail.html', {'event': event})
+
+def events_list(request):
+    events = Event.objects.annotate(participants_count=Count('participants'))
+    return render(request, 'events_list.html', {'events': events})
 
 # -------------- Category section ---------------------
 def create_category(request):

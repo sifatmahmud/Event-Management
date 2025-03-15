@@ -28,9 +28,9 @@
 
 
         {% comment %} Events section {% endcomment %}
-        <div class="grid grid-cols-3 p-5">
+        <div class="grid grid-cols-3 p-5 mt-16">
             {% comment %} title section {% endcomment %}
-            <div class="text-4xl font-bold col-span-2 flex justify-center">Events</div>
+            <div class="text-6xl font-bold col-span-2 flex justify-center">Events</div>
                 {% comment %} Box Container {% endcomment %}
             <div class="bg-gray-100 p-2 rounded-lg shadow-lg w-56">
                 {% comment %} Buttons {% endcomment %}
@@ -48,43 +48,48 @@
             </div>
         </div>
 
+
         {% comment %} events cards section {% endcomment %}
+        {% block events %}
         <div class="grid items-center grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 p-5 gap-5  mb-12">
             <!-- card-1 -->
-            {% for i in "x"|rjust:"6" %}
-            <div class="max-w-lg sm:cols-span-1 md:cols-span-1 lg:cols-span-1 rounded-lg overflow-hidden shadow-lg shadow-indigo-400 hover:shadow-indigo-500 hover:shadow-xl transition-all duration-500 transform hover:scale-105 items-center">
-                <img class="w-full" src="/static/images/tech.jpg" alt="">
+            {% for event in events %}
+            <a href="{% url "event_detail" event.id %}">
+            <div class="max-w-lg sm:cols-span-1 md:cols-span-1 lg:cols-span-1 rounded-lg overflow-hidden  border hover:shadow-indigo-500 hover:shadow-xl transition-all duration-500 transform hover:scale-105 items-center">
+                <img class="w-full max-h-lg" src="https://picsum.photos/400/300?random={{ event.id }}" alt="Random Event Image">
+
                 <div class="p-3">
-                    <h1 class="text-2xl font-semibold mb-1">Tech Conference 2025</h1>
+                    <h1 class="text-2xl font-semibold mb-1">{{event.name}}</h1>
                     <div class="flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 h-5 w-5 text-gray-500 mr-2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
                         </svg>
-                        <span class="texm-sm text-gray-600 mr-2">Nov 15 2024 -</span>
-                        <span class="texm-sm text-gray-600">09:00 PM</span>
+                        <span class="texm-sm text-gray-600 mr-2">{{event.date}} -</span>
+                        <span class="texm-sm text-gray-600">{{event.time}}</span>
                     </div>
 
                     <div class="flex items-center mb-2">
                         <span class="font-semibold text-gray-800 mr-2">Category:</span>
-                        <span class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-full text-xs font-semibold">Technology</span>
+                        <span class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-full text-xs font-semibold">{{event.category}}</span>
                     </div>
                     <div class="flex items-center">
                         <span class="font-semibold text-gray-800 mr-2">Participants:</span>
-                        <span class="bg-green-100 text-green-800 py-1 px-2 rounded-full text-xs font-semibold">150</span>
+                        <span class="bg-green-100 text-green-800 py-1 px-2 rounded-full text-xs font-semibold">{{event.participants_count}}</span>
                     </div>
 
                     <div class="text-xs p-2">
-                        Join us for the biggest tech conference of the year featuring keynotes from industry leaders and hands-on workshops.
+                        {{event.description}}
                     </div>
                 </div>
                 
             </div>
+            </a>
             {% endfor %}
         </div>
-
+        {% endblock events %}
 
         {% comment %} Service section {% endcomment %}
-        <div class="p-5">
+        <div class="p-5 mt-32">
             <div class="flex flex-col justify-center items-center">
                 <h1 class="text-4xl font-bold">Our Services</h1>
                 <h3 class="font-semibold">Crafting Unforgettable Experiences, Seamlessly Managed</h3>
@@ -127,7 +132,7 @@
         </div>
 
         {% comment %} explore section {% endcomment %}
-        <div class="flex flex-col justify-center items-center gap-1 p-16 bg-gray-100 mt-16">
+        <div class="flex flex-col justify-center items-center gap-1 p-16 bg-gray-100 mt-32">
             <div class="text-black font-bold text-4xl">Ready to explore events ?</div>
             <div class="flex flex-col justify-center items-center p-6">
                 <div class="text-gray-500">Join thousands of attendees discovering new experiences every day. Contact us to get personalized</div>
@@ -139,5 +144,5 @@
                 Contact Us
             </button>
         </div>
-{% endblock  %}
+{% endblock content %}
 
