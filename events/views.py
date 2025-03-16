@@ -3,6 +3,8 @@ from events.forms import Event_Form, Category_Form, Participant_Form, Contact_Us
 from django.contrib import messages
 from events.models import Event, Participant, Category
 from django.db.models import Count
+from django.utils.timezone import now, timedelta
+from django.http import JsonResponse
 
 
 
@@ -82,3 +84,36 @@ def contact_us(request):
         contact_us_form = Contact_Us_Form()
     
     return render(request, 'forms/contact_us.html', {'contact_us_form':contact_us_form})
+
+
+# ---------------- Dashboard section ---------------------
+
+def dashboard(request):
+
+
+    past_one_week = now() - timedelta(days=7)
+    recent_events = Event.objects.filter(date__gte=past_one_week, 
+    date__lt=now()).order_by('-date').annotate(participants_count=Count('participants'))
+
+    total_events = Event.objects.annotate(participants_count=Count('participants'))
+
+    past_events = Event.objects.filter(date__lt=now()).order_by('-date')
+
+    upcoming_events = Event.objects.filter(date__gte=now()).order_by('date')
+
+
+
+    participants = Participant.objects.all()
+
+
+    categorys = Category.objects.all()
+
+    context = {'recent_events':recent_events, 'total_events':total_events, 'past_events':past_events,'upcoming_events':upcoming_events ,'participants':participants, 'categorys':categorys}
+    return render(request, 'dashboard/main_ui.html', context)
+
+def all_events(request):
+    total_events = Event.objects.annotate(participants_count=Count('participants'))
+
+    context = {'total_events':total_events}
+    return render(request, 'dashboard/all_events.html', context)
+

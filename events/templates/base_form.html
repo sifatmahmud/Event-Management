@@ -9,10 +9,10 @@
 </head>
 <body>
     <div class="grid w-full justify-items-center gap-5">
-        <div>
+        <div class="mt-16">
             {% if messages %}
                 {% for message in messages %}
-                    <div class="px-2 py-1 {% if message.tags == 'success' %}bg-green-500{% endif %}">{{message}}</div>
+                    <div class="px-2 py-1 rounded-md {% if message.tags == 'success' %}bg-green-500{% endif %}">{{message}}</div>
                 {% endfor %}
             {% endif %}
         </div>

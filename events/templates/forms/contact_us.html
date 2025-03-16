@@ -5,12 +5,13 @@
         <div class="mt-5">
             {% if messages %}
                 {% for message in messages %}
-                    <div class="px-2 py-1 {% if message.tags == 'success' %}bg-green-500{% endif %}">{{message}}</div>
+                    <div class="px-2 py-1 rounded-md {% if message.tags == 'success' %}bg-green-500{% endif %}">{{message}}</div>
                 {% endfor %}
             {% endif %}
         </div>
 
         <h2 class="text-4xl font-bold mt-5"> Contact Us </h2>
+        <div class="text-gray-500">Let us know about your plan</div>
         <form method="post">
             {% csrf_token %}
             {{ contact_us_form.as_p }}

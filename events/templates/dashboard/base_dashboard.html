@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body>
+    <div class="flex min-h-screen mt-8 mb-64">
+        <!-- Sidebar -->
+        <div class="bg-white w-64 pl-5 py-5 left-0">
+            <h1 class="text-4xl font-bold mb-6">Dashboard</h1>
+            <nav>
+                <ul>
+                    <a href="{% url "dashboard" %}">
+                        <li class="p-2 flex items-center space-x-2 hover:bg-gray-200 rounded-md cursor-pointer">
+                            <span>📊 Overview</span>
+                        </li>
+                    </a>
+                    <a href="{% url "all-events" %}">
+                        <li id="dashboard_events" class="p-2 flex items-center space-x-2 hover:bg-gray-200 rounded-md cursor-pointer">
+                            <span>📅 Events</span>
+                        </li>
+                    </a>
+                    <li class="p-2 flex items-center space-x-2 hover:bg-gray-200 rounded-md">
+                        <span>👥 Participants</span>
+                    </li>
+                    <li class="p-2 flex items-center space-x-2 hover:bg-gray-200 rounded-md">
+                        <span>🏷️ Category</span>
+                    </li>
+                    <li class="p-2 flex items-center space-x-2 hover:bg-gray-200 rounded-md">
+                        <span>📩 Contacts Messages</span>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    
+        <!-- Main Content -->
+        <main id="dashboard_stats" class="flex-1 pt-12 mr-32 ml-5">
+            {% block overview %}
+            
+            {% endblock overview %}
+
+            {% block all_events %}{% endblock all_events %}
+        </main>
+    </div>
+</body>
+</html>
