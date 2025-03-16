@@ -1,7 +1,7 @@
-{% extends 'base_form.html' %}
+{% extends 'dashboard/base_dashboard.html' %}
 
 {% block content %}
-    <h2 class="text-4xl font-bold mt-5"> Create Event </h2>
+    <h2 class="text-4xl font-bold"> Create Event </h2>
     <form method="post">
         {% csrf_token %}
         {{ create_event_form.as_p }}

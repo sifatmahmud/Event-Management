@@ -25,12 +25,16 @@
                             <span>📅 Events</span>
                         </li>
                     </a>
-                    <li class="p-2 flex items-center space-x-2 hover:bg-gray-200 rounded-md">
-                        <span>👥 Participants</span>
-                    </li>
-                    <li class="p-2 flex items-center space-x-2 hover:bg-gray-200 rounded-md">
-                        <span>🏷️ Category</span>
-                    </li>
+                    <a href="{% url 'all-participants' %}">
+                        <li class="p-2 flex items-center space-x-2 hover:bg-gray-200 rounded-md">
+                            <span>👥 Participants</span>
+                        </li>
+                    </a>
+                    <a href="{% url 'all-categories' %}">
+                        <li class="p-2 flex items-center space-x-2 hover:bg-gray-200 rounded-md">
+                            <span>🏷️ Category</span>
+                        </li>
+                    </a>
                     <li class="p-2 flex items-center space-x-2 hover:bg-gray-200 rounded-md">
                         <span>📩 Contacts Messages</span>
                     </li>
@@ -40,11 +44,36 @@
     
         <!-- Main Content -->
         <main id="dashboard_stats" class="flex-1 pt-12 mr-32 ml-5">
+            <div class="mb-5">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="px-2 py-1 rounded-md {% if message.tags == 'success' %}bg-green-500{% endif %}">{{message}}</div>
+                    {% endfor %}
+                {% endif %}
+            </div>
             {% block overview %}
             
             {% endblock overview %}
 
-            {% block all_events %}{% endblock all_events %}
+            {% block all_events %}
+            
+            {% endblock all_events %}
+
+            {% block all_categories %}
+            
+            {% endblock all_categories %}
+
+            {% block all_participants %}
+            
+            {% endblock all_participants %}
+
+            
+            <div class="grid w-full justify-items-center gap-5">
+
+                {% block content %}
+            
+                {% endblock content %}
+            </div>
         </main>
     </div>
 </body>

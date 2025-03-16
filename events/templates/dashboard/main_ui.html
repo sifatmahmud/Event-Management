@@ -3,18 +3,22 @@
 {% block overview %}
         <!-- Stats Cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 flex justify-between">
-            <div class="p-5 rounded-md shadow shadow-indigo-500">
-                <h2 class="text-lg font-semibold">Total Events</h2>
-                <p class="text-2xl font-bold">{{total_events.count}}</p>
-            </div>
-            <div class="p-5 rounded-md shadow shadow-indigo-500">
+            <a href="{% url 'all-events' %}">
+                <div class="p-5 rounded-md shadow shadow-indigo-500 hover:shadow-lg hover:shadow-indigo-500">
+                    <h2 class="text-lg font-semibold">Total Events</h2>
+                    <p class="text-2xl font-bold">{{total_events.count}}</p>
+                </div>
+            </a>
+            <div class="p-5 rounded-md shadow shadow-indigo-500 hover:shadow-lg hover:shadow-indigo-500">
                 <h2 class="text-lg font-semibold">Total Participants</h2>
                 <p class="text-2xl font-bold">{{participants.count}}</p>
             </div>
-            <div class="p-5 rounded-md shadow shadow-indigo-500">
-                <h2 class="text-lg font-semibold">Catergory</h2>
-                <p class="text-2xl font-bold">{{categorys.count}}</p>
-            </div>
+            <a href="{% url 'all-categories' %}">
+                <div class="p-5 rounded-md shadow shadow-indigo-500 hover:shadow-lg hover:shadow-indigo-500">
+                    <h2 class="text-lg font-semibold">Catergory</h2>
+                    <p class="text-2xl font-bold">{{categorys.count}}</p>
+                </div>
+            </a>
         </div>
 
         <!-- Recent Events Table -->

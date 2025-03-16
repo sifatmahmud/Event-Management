@@ -30,7 +30,30 @@ def create_event(request):
     
     return render(request, 'forms/create_event.html', {'create_event_form':create_event_form})
 
+def update_event(request, event_id):
+    event = Event.objects.get(id=event_id)
+    if request.method == "POST":
+        update_event_form = Event_Form(request.POST, instance=event)
+        if update_event_form.is_valid():
+            update_event_form.save()
+            messages.success(request, "Event Updated Successfully")
+            return redirect('all-events') 
+    else:
+        update_event_form = Event_Form(instance=event)
 
+    return render(request, 'forms/update_event.html', {'update_event_form': update_event_form})
+
+def delete_event(request, event_id):
+    event = Event.objects.get(id=event_id)
+    print(event_id)
+    if request.method == "POST":
+        event.delete()
+        messages.success(request, "Event Deleted Successfully")
+        return redirect('all-events') 
+
+    else:
+        messages.error(request, 'Something went wrong')
+        return redirect('all-events')
 
 def event_detail(request, event_id):
     event = Event.objects.get(id=event_id)
@@ -39,6 +62,12 @@ def event_detail(request, event_id):
 def events_list(request):
     events = Event.objects.annotate(participants_count=Count('participants'))
     return render(request, 'events_list.html', {'events': events})
+
+def all_events(request):
+    total_events = Event.objects.annotate(participants_count=Count('participants'))
+
+    context = {'total_events':total_events}
+    return render(request, 'dashboard/all_events.html', context)
 
 # -------------- Category section ---------------------
 def create_category(request):
@@ -54,6 +83,36 @@ def create_category(request):
     
     return render(request, 'forms/create_category.html', {'create_category_form':create_category_form})
 
+def update_category(request, category_id):
+    category = Category.objects.get(id=category_id)
+
+    if request.method == 'POST':
+        update_category_form = Category_Form(request.POST, instance=category)
+        if update_category_form.is_valid():
+            update_category_form.save()
+            messages.success(request, "Category Updated Successfully")
+            return redirect('all-categories')
+    else:
+        update_category_form = Category_Form(instance=category)
+
+    return render(request, 'forms/update_category.html', {'update_category_form': update_category_form})
+
+def delete_category(request, category_id):
+    category = Category.objects.get(id=category_id)
+
+    if request.method == "POST":
+        category.delete()
+        messages.success(request, "Category Deleted Successfully")
+        return redirect('all-categories')
+
+    messages.error(request, "Invalid request method")
+    return redirect('all-categories')
+
+def all_categories(request):
+    total_categories = Category.objects.all()
+
+    context = {'total_categories':total_categories}
+    return render(request, 'dashboard/all_categories.html', context)
 # -------------- Participant section ---------------------
 def create_participant(request):
     if request.method == 'POST':
@@ -68,9 +127,37 @@ def create_participant(request):
     
     return render(request, 'forms/create_participant.html', {'create_participant_form':create_participant_form})
 
+def update_participant(request, participant_id):
+    participant = Participant.objects.get(id=participant_id)
+
+    if request.method == 'POST':
+        update_participant_form = Participant_Form(request.POST, instance=participant)
+        if update_participant_form.is_valid():
+            update_participant_form.save()
+            messages.success(request, "Participant Updated Successfully")
+            return redirect('all-participants')
+    else:
+        update_participant_form = Participant_Form(instance=participant)
+    
+    return render(request, 'forms/update_participant.html', {'update_participant_form': update_participant_form})
 
 
+def delete_participant(request, participant_id):
+    participant = Participant.objects.get(id=participant_id)
 
+    if request.method == "POST":
+        participant.delete()
+        messages.success(request, "Participant Deleted Successfully")
+        return redirect('all-participants')
+    else:
+        messages.error(request, "Something went wrong")
+        return redirect('all-participants') 
+
+def all_participants(request):
+    total_participants = Participant.objects.all
+
+    context = {'total_participants':total_participants}
+    return render(request, 'dashboard/all_participants.html', context)
 # -------------- Contact Us section ---------------------
 def contact_us(request):
     if request.method == 'POST':
@@ -111,9 +198,5 @@ def dashboard(request):
     context = {'recent_events':recent_events, 'total_events':total_events, 'past_events':past_events,'upcoming_events':upcoming_events ,'participants':participants, 'categorys':categorys}
     return render(request, 'dashboard/main_ui.html', context)
 
-def all_events(request):
-    total_events = Event.objects.annotate(participants_count=Count('participants'))
 
-    context = {'total_events':total_events}
-    return render(request, 'dashboard/all_events.html', context)
 
