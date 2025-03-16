@@ -1,0 +1,36 @@
+{% extends "dashboard/base_dashboard.html" %}
+
+{% block all_contacts %}
+<div class="mt-6 bg-white p-5 rounded-md shadow shadow-indigo-500">
+    <h2 class="text-lg font-semibold mb-4">All Contacts</h2>
+    <table class="w-full">
+        <tr class="bg-gray-200 rounded-md">
+            <th class="p-2 text-left">ID</th>
+            <th class="p-2 text-left">Manage</th>
+            <th class="p-2 text-left">Name</th>
+            <th class="p-2 text-left">Email</th>
+            <th class="p-2 text-left">Desctiption</th>
+
+        </tr>
+        <tbody>
+            {% for contact in total_contacts %}
+            <tr>
+                <td class="p-2 font-semibold">{{contact.id}}</td>
+                <td class="p-2 flex flex-wrap gap-2">
+                    <form method="POST" action="{% url 'delete-contact' contact.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="border shadow shadow-red-500 hover:shadow-lg hover:shadow-red-500 rounded-md p-2">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+                <td class="p-2">{{contact.name}}</td>
+                <td class="p-2">{{contact.email}}</td>
+                <td class="p-2">{{contact.description}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock all_contacts %}

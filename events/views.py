@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from events.forms import Event_Form, Category_Form, Participant_Form, Contact_Us_Form
 from django.contrib import messages
-from events.models import Event, Participant, Category
+from events.models import Event, Participant, Category, Contact_Us
 from django.db.models import Count
 from django.utils.timezone import now, timedelta
 from django.http import JsonResponse
@@ -158,6 +158,7 @@ def all_participants(request):
 
     context = {'total_participants':total_participants}
     return render(request, 'dashboard/all_participants.html', context)
+
 # -------------- Contact Us section ---------------------
 def contact_us(request):
     if request.method == 'POST':
@@ -172,6 +173,22 @@ def contact_us(request):
     
     return render(request, 'forms/contact_us.html', {'contact_us_form':contact_us_form})
 
+def delete_contact(request, contact_id):
+    contact = Contact_Us.objects.get(id=contact_id)
+
+    if request.method == "POST":
+        contact.delete()
+        messages.success(request, "Contact Deleted Successfully")
+        return redirect('all-contacts')
+    else:
+        messages.error(request, "Something went wrong")
+        return redirect('all-contacts') 
+
+def all_contacts(request):
+    total_contacts = Contact_Us.objects.all()
+
+    context = {'total_contacts':total_contacts}
+    return render(request, 'dashboard/all_contacts.html', context)
 
 # ---------------- Dashboard section ---------------------
 

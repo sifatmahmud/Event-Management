@@ -96,7 +96,7 @@ class Participant_Form(StyleFormMixin ,forms.ModelForm):
 class Contact_Us_Form(StyleFormMixin ,forms.ModelForm):
     class Meta:
         model = Contact_Us
-        fields = ['name','subject', 'description']
+        fields = ['name','email', 'description']
 
     """ --------- Using Mixing Widget ----------- """
     def __init__(self, *args, **kwargs):

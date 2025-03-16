@@ -35,7 +35,7 @@ class Category(models.Model):
 
 class Contact_Us(models.Model):
     name = models.CharField(max_length=250)
-    subject = models.CharField(max_length=350)
+    email = models.EmailField()
     description = models.TextField()
 
     def __str__(self):

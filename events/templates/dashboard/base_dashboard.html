@@ -35,9 +35,11 @@
                             <span>🏷️ Category</span>
                         </li>
                     </a>
-                    <li class="p-2 flex items-center space-x-2 hover:bg-gray-200 rounded-md">
-                        <span>📩 Contacts Messages</span>
-                    </li>
+                    <a href="{% url 'all-contacts' %}">
+                        <li class="p-2 flex items-center space-x-2 hover:bg-gray-200 rounded-md">
+                            <span>📩 Contacts Messages</span>
+                        </li>
+                    </a>
                 </ul>
             </nav>
         </div>
@@ -66,6 +68,10 @@
             {% block all_participants %}
             
             {% endblock all_participants %}
+
+            {% block all_contacts %}
+            
+            {% endblock all_contacts %}
 
             
             <div class="grid w-full justify-items-center gap-5">
