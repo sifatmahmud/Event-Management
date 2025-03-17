@@ -21,7 +21,7 @@
         </tr>
         <tbody>
             {% for category in total_categories %}
-            <tr>
+            <tr class="border-b">
                 <td class="p-2 font-semibold">{{category.id}}</td>
                 <td class="p-2 flex flex-wrap gap-2">
                     <a href="{% url 'update-category' category.id %}">

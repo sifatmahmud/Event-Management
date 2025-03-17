@@ -22,7 +22,7 @@
         </tr>
         <tbody>
             {% for participant in total_participants %}
-            <tr>
+            <tr class="border-b">
                 <td class="p-2 font-semibold">{{participant.id}}</td>
                 <td class="p-2 flex flex-wrap gap-2">
                     <a href="{% url 'update-participant' participant.id %}">

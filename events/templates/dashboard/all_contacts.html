@@ -14,7 +14,7 @@
         </tr>
         <tbody>
             {% for contact in total_contacts %}
-            <tr>
+            <tr class="border-b">
                 <td class="p-2 font-semibold">{{contact.id}}</td>
                 <td class="p-2 flex flex-wrap gap-2">
                     <form method="POST" action="{% url 'delete-contact' contact.id %}">
