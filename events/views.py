@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from events.forms import Event_Form, Category_Form, Participant_Form, Contact_Us_Form
 from django.contrib import messages
 from events.models import Event, Participant, Category, Contact_Us
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.utils.timezone import now, timedelta
 from django.http import JsonResponse
 
@@ -10,7 +10,16 @@ from django.http import JsonResponse
 
 
 def home(request):
-    events = Event.objects.annotate(participants_count=Count('participants'))[:8]
+    query = request.GET.get('q')
+    events = Event.objects.annotate(participants_count=Count('participants'))
+
+    if query:
+        events = events.filter(Q(name__icontains=query) | Q(description__icontains=query))
+    else:
+        events = events[:8] # prothom 8 ta show korbe
+
+
+
     return render(request, 'home.html', {"events": events})
 
 def about(request):
@@ -60,7 +69,12 @@ def event_detail(request, event_id):
     return render(request, 'event_detail.html', {'event': event})
 
 def events_list(request):
+    query = request.GET.get('q')
     events = Event.objects.annotate(participants_count=Count('participants'))
+    
+    if query:
+        events = events.filter(Q(name__icontains=query) | Q(description__icontains=query))
+
     return render(request, 'events_list.html', {'events': events})
 
 def all_events(request):
