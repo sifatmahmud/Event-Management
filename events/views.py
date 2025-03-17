@@ -11,7 +11,7 @@ from django.http import JsonResponse
 
 def home(request):
     query = request.GET.get('q')
-    events = Event.objects.annotate(participants_count=Count('participants'))
+    events = Event.objects.select_related("category").annotate(participants_count=Count('participants'))
 
     if query:
         events = events.filter(Q(name__icontains=query) | Q(description__icontains=query))
@@ -65,12 +65,12 @@ def delete_event(request, event_id):
         return redirect('all-events')
 
 def event_detail(request, event_id):
-    event = Event.objects.get(id=event_id)
+    event = Event.objects.select_related("category").prefetch_related("participants").get(id=event_id)
     return render(request, 'event_detail.html', {'event': event})
 
 def events_list(request):
     query = request.GET.get('q')
-    events = Event.objects.annotate(participants_count=Count('participants'))
+    events = Event.objects.select_related("category").annotate(participants_count=Count('participants'))
     
     if query:
         events = events.filter(Q(name__icontains=query) | Q(description__icontains=query))
@@ -211,13 +211,13 @@ def dashboard(request):
 
     past_one_week = now() - timedelta(days=7)
     recent_events = Event.objects.filter(date__gte=past_one_week, 
-    date__lt=now()).order_by('-date').annotate(participants_count=Count('participants'))
+    date__lt=now()).order_by('-date').annotate(participants_count=Count('participants')).select_related("category").prefetch_related("participants")
 
-    total_events = Event.objects.annotate(participants_count=Count('participants'))
+    total_events = Event.objects.select_related("category").annotate(participants_count=Count('participants'))
 
-    past_events = Event.objects.filter(date__lt=now()).order_by('-date')
+    past_events = Event.objects.filter(date__lt=now()).order_by('-date').select_related("category")
 
-    upcoming_events = Event.objects.filter(date__gte=now()).order_by('date')
+    upcoming_events = Event.objects.filter(date__gte=now()).order_by('date').select_related("category")
 
 
 
