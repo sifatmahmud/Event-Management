@@ -37,7 +37,7 @@
         <div class="text-6xl font-bold flex justify-center p-16">| Events |</div>
         {% comment %} events cards section {% endcomment %}
         {% block events %}
-        <div class="grid items-center grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 p-5 gap-5  mb-12">
+        <div class="grid items-center grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 p-5 gap-5  mb-8">
             <!-- card-1 -->
             {% for event in events %}
             <a href="{% url "event_detail" event.id %}">
@@ -73,6 +73,15 @@
             {% endfor %}
         </div>
         {% endblock events %}
+
+        {% comment %}  view more Buttons {% endcomment %}
+        <div class="flex justify-center">
+            <a href="{% url "events_list" %}">
+                <button class="border-2 py-2 px-6 rounded-lg hover:shadow-indigo-500 hover:shadow-lg transition-all duration-300 focus:outline-none">
+                view more
+                </button>
+            </a>
+        </div>
 
         {% comment %} Service section {% endcomment %}
         <div class="p-5 mt-32">
