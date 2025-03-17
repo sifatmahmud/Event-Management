@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -71,19 +72,26 @@ WSGI_APPLICATION = 'event_management.wsgi.application'
 #     }
 # }
 
-
+DATABASES = {
+    'default': dj_database_url.config(
+        default='postgresql://event_management_db_pyem_user:zYvV5OzOqw0vv93TfAgkY74ox7oycU2X@dpg-cvc6chbtq21c73dm1vf0-a.oregon-postgres.render.com/event_management_db_pyem',
+        conn_max_age=600
+    )
+}
 
 # for postgre sql
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'event_management_db',
-        'USER': 'postgres', 
-        'PASSWORD': '1122', 
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'event_management_db',
+#         'USER': 'postgres', 
+#         'PASSWORD': '1122', 
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
+
+
 
 
 
