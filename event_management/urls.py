@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from events.views import home, about, contact_us, dashboard, all_events, all_categories, all_participants, all_contacts
+from django.conf import settings
 
 
 urlpatterns = [
@@ -15,3 +16,8 @@ urlpatterns = [
     path('dashboard/all-contacts/', all_contacts, name='all-contacts'),
     path('events/', include("events.urls")),
 ]
+
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [path('__debug__/', include(debug_toolbar.urls))]

@@ -18,8 +18,6 @@ def home(request):
     else:
         events = events[:8] # prothom 8 ta show korbe
 
-
-
     return render(request, 'home.html', {"events": events})
 
 def about(request):
@@ -65,7 +63,7 @@ def delete_event(request, event_id):
         return redirect('all-events')
 
 def event_detail(request, event_id):
-    event = Event.objects.select_related("category").prefetch_related("participants").get(id=event_id)
+    event = Event.objects.select_related("category").prefetch_related("participants").annotate(participants_count=Count('participants')).get(id=event_id)
     return render(request, 'event_detail.html', {'event': event})
 
 def events_list(request):
@@ -215,9 +213,9 @@ def dashboard(request):
 
     total_events = Event.objects.select_related("category").annotate(participants_count=Count('participants'))
 
-    past_events = Event.objects.filter(date__lt=now()).order_by('-date').select_related("category")
+    past_events = Event.objects.filter(date__lt=now()).order_by('-date').select_related("category").annotate(participants_count=Count('participants'))
 
-    upcoming_events = Event.objects.filter(date__gte=now()).order_by('date').select_related("category")
+    upcoming_events = Event.objects.filter(date__gte=now()).order_by('date').select_related("category").annotate(participants_count=Count('participants'))
 
 
 
