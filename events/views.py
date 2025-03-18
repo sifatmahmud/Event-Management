@@ -168,7 +168,7 @@ def delete_participant(request, participant_id):
         return redirect('all-participants') 
 
 def all_participants(request):
-    total_participants = Participant.objects.all
+    total_participants = Participant.objects.all()
 
     context = {'total_participants':total_participants}
     return render(request, 'dashboard/all_participants.html', context)
