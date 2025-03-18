@@ -2,16 +2,17 @@ from django.shortcuts import render, redirect
 from events.forms import Event_Form, Category_Form, Participant_Form, Contact_Us_Form
 from django.contrib import messages
 from events.models import Event, Participant, Category, Contact_Us
-from django.db.models import Count, Q
+from django.db.models import Count, Q, Prefetch
 from django.utils.timezone import now, timedelta
 from django.http import JsonResponse
 
 
 
 
+
 def home(request):
     query = request.GET.get('q')
-    events = Event.objects.select_related("category").annotate(participants_count=Count('participants'))
+    events = Event.objects.select_related("category").prefetch_related(Prefetch("participants")).annotate(participants_count=Count('participants'))
 
     if query:
         events = events.filter(Q(name__icontains=query) | Q(description__icontains=query))
@@ -76,7 +77,7 @@ def events_list(request):
     return render(request, 'events_list.html', {'events': events})
 
 def all_events(request):
-    total_events = Event.objects.annotate(participants_count=Count('participants'))
+    total_events = Event.objects.select_related("category").prefetch_related(Prefetch("participants")).annotate(participants_count=Count("participants"))
 
     context = {'total_events':total_events}
     return render(request, 'dashboard/all_events.html', context)
@@ -121,7 +122,7 @@ def delete_category(request, category_id):
     return redirect('all-categories')
 
 def all_categories(request):
-    total_categories = Category.objects.all()
+    total_categories = Category.objects.select_related('created_by').annotate(event_count=Count('event'))
 
     context = {'total_categories':total_categories}
     return render(request, 'dashboard/all_categories.html', context)
@@ -166,7 +167,7 @@ def delete_participant(request, participant_id):
         return redirect('all-participants') 
 
 def all_participants(request):
-    total_participants = Participant.objects.all()
+    total_participants = Participant.objects.annotate(event_count=Count('events'))
 
     context = {'total_participants':total_participants}
     return render(request, 'dashboard/all_participants.html', context)
