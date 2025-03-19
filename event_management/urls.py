@@ -16,8 +16,3 @@ urlpatterns = [
     path('dashboard/all-contacts/', all_contacts, name='all-contacts'),
     path('events/', include("events.urls")),
 ]
-
-
-if settings.DEBUG:
-    import debug_toolbar
-    urlpatterns += [path('__debug__/', include(debug_toolbar.urls))]
