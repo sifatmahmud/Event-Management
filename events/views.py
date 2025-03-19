@@ -122,7 +122,7 @@ def delete_category(request, category_id):
     return redirect('all-categories')
 
 def all_categories(request):
-    total_categories = Category.objects.select_related('created_by').annotate(event_count=Count('event'))
+    total_categories = Category.objects.select_related('created_by').annotate(event_count=Count('events'))
 
     context = {'total_categories':total_categories}
     return render(request, 'dashboard/all_categories.html', context)
